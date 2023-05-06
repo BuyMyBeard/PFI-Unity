@@ -178,8 +178,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: MC
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -8616666598630392892, guid: dfafadb2d90fd894a92fb1624d5a7b0b, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfafadb2d90fd894a92fb1624d5a7b0b, type: 3}
 --- !u!1 &455763038
 GameObject:
@@ -265,116 +264,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &463771610 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3995489302489146105, guid: dfafadb2d90fd894a92fb1624d5a7b0b, type: 3}
-  m_PrefabInstance: {fileID: 112438621}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &463771614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 463771610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78c01867d98ca524baf027e0bdc74da4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  terminalVelocity: -6
-  gravAcceleration: -15
-  horizontalSpeed: 7
-  jumpVelocity: 12
-  groundCheckDistance: 0.1
-  compensation: 0
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  platformLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  noFriction: {fileID: 0}
-  highFriction: {fileID: 0}
-  SlopeUpCompensation: 0.05
-  slope: 2
-  ascendingDrag: 1
-  holdingJumpDrag: 1
-  coyoteTime: 0.2
-  stunnedGravityScale: 1
-  ragdollPhysics: {fileID: 0}
-  inDeathPit: 0
---- !u!95 &463771615
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 463771610}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!50 &463771616
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 463771610}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!70 &463771617
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 463771610}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.64, y: 0.64}
-  m_Direction: 0
---- !u!114 &463771618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 463771610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f681ab6cba03e244c93984ea5e49c683, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpInputBuffer: 0.1
 --- !u!1 &947287336
 GameObject:
   m_ObjectHideFlags: 0

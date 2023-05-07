@@ -171,8 +171,8 @@ MonoBehaviour:
   platformLayer:
     serializedVersion: 2
     m_Bits: 128
-  noFriction: {fileID: 0}
-  highFriction: {fileID: 0}
+  noFriction: {fileID: 6200000, guid: 7116f16114ff1f041ad1e63f22c9adf8, type: 2}
+  highFriction: {fileID: 6200000, guid: f9cd31175dd121f42bfacb1dba1e0f1c, type: 2}
   SlopeUpCompensation: 0.05
   slope: 2
   ascendingDrag: 1

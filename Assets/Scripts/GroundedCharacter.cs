@@ -153,10 +153,8 @@ public abstract class GroundedCharacter : MonoBehaviour
             transform.Translate(0, compensation, 0);
         }
         else if (slopeHitRight)
-        {
             slope = Slope.Up;
-            Debug.Log("dkdkkd");
-        }
+
         else //slopeHitBack
             slope = Slope.Down;
 

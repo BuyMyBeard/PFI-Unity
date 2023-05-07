@@ -13,7 +13,9 @@ TagManager:
   - UI
   - Ground
   - Platform
-  - Enemy
+  - Lava
+  - Spikes
+  - ProjectileBoundaries
   - 
   - 
   - 

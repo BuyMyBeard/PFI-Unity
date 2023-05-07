@@ -5,6 +5,10 @@ using UnityEngine;
 public enum GroundedCharacterAnimations { Idle, Walking, Jumping, Raising, Falling, Landing }
 public enum Slope { Down, Up, None };
 
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(Animator))]
 public abstract class GroundedCharacter : MonoBehaviour
 {
     [SerializeField] protected float terminalVelocity = -6;
@@ -65,7 +69,6 @@ public abstract class GroundedCharacter : MonoBehaviour
         Sprite = GetComponent<SpriteRenderer>();
         ColliderSize = CC.size * transform.localScale;
         //audioManager = GetComponent<AudioManagerComponent>();
-        animator = GetComponent<Animator>();
     }
 
     protected void FixedUpdate()

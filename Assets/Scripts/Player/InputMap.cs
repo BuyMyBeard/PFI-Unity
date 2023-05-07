@@ -62,6 +62,15 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Drop"",
+                    ""type"": ""Button"",
+                    ""id"": ""f961d7e5-2c32-4614-9480-1aaeb200e1b7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -91,6 +100,28 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""b47eda54-e616-4ed2-8b7a-39fcadeb0967"",
                     ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ec5618f-6d1a-478d-8d23-238553293c28"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a89e8469-c655-43b3-bd67-b809bbbc3c87"",
+                    ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -185,6 +216,28 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""action"": ""Move Keyboard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""613130f7-724b-4232-bb0a-7fce54db6285"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4aece81a-d36d-4e87-827d-55415fcfc385"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -197,6 +250,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         m_PlayerInputs_Move = m_PlayerInputs.FindAction("Move", throwIfNotFound: true);
         m_PlayerInputs_Aim = m_PlayerInputs.FindAction("Aim", throwIfNotFound: true);
         m_PlayerInputs_MoveKeyboard = m_PlayerInputs.FindAction("Move Keyboard", throwIfNotFound: true);
+        m_PlayerInputs_Drop = m_PlayerInputs.FindAction("Drop", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -262,6 +316,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerInputs_Move;
     private readonly InputAction m_PlayerInputs_Aim;
     private readonly InputAction m_PlayerInputs_MoveKeyboard;
+    private readonly InputAction m_PlayerInputs_Drop;
     public struct PlayerInputsActions
     {
         private @InputMap m_Wrapper;
@@ -270,6 +325,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_PlayerInputs_Move;
         public InputAction @Aim => m_Wrapper.m_PlayerInputs_Aim;
         public InputAction @MoveKeyboard => m_Wrapper.m_PlayerInputs_MoveKeyboard;
+        public InputAction @Drop => m_Wrapper.m_PlayerInputs_Drop;
         public InputActionMap Get() { return m_Wrapper.m_PlayerInputs; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -291,6 +347,9 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
             @MoveKeyboard.started += instance.OnMoveKeyboard;
             @MoveKeyboard.performed += instance.OnMoveKeyboard;
             @MoveKeyboard.canceled += instance.OnMoveKeyboard;
+            @Drop.started += instance.OnDrop;
+            @Drop.performed += instance.OnDrop;
+            @Drop.canceled += instance.OnDrop;
         }
 
         private void UnregisterCallbacks(IPlayerInputsActions instance)
@@ -307,6 +366,9 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
             @MoveKeyboard.started -= instance.OnMoveKeyboard;
             @MoveKeyboard.performed -= instance.OnMoveKeyboard;
             @MoveKeyboard.canceled -= instance.OnMoveKeyboard;
+            @Drop.started -= instance.OnDrop;
+            @Drop.performed -= instance.OnDrop;
+            @Drop.canceled -= instance.OnDrop;
         }
 
         public void RemoveCallbacks(IPlayerInputsActions instance)
@@ -330,5 +392,6 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnMoveKeyboard(InputAction.CallbackContext context);
+        void OnDrop(InputAction.CallbackContext context);
     }
 }

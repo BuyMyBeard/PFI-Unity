@@ -11,6 +11,8 @@ public enum Slope { Down, Up, None };
 [RequireComponent(typeof(Animator))]
 public abstract class GroundedCharacter : MonoBehaviour
 {
+    [Header("GroundedCharacter")]
+    [Space(10)]
     [SerializeField] protected float terminalVelocity = -6;
     [SerializeField] protected float gravAcceleration = -15;
     [SerializeField] public float horizontalSpeed = 7;
@@ -156,10 +158,6 @@ public abstract class GroundedCharacter : MonoBehaviour
 
         if (oldSlope != Slope.None && slope == Slope.None && IsGrounded)
             StartCoroutine(CompensateForSlopeUp());
-        //if (this is AngryRatComponent)
-        //{
-        //    Debug.Log($"({rayOrigin.x}, {rayOrigin.y}), {groundCheckDistance}");
-        //}
         Debug.DrawRay(rayOrigin, Vector2.right * groundCheckDistance, Color.green);
         Debug.DrawRay(rayOrigin, Vector2.left * groundCheckDistance, Color.blue);
     }

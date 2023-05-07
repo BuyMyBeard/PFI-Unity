@@ -10,6 +10,7 @@ public class PlayerInputComponent : MonoBehaviour
     public Vector2 MoveInput { get; private set; } = Vector2.zero;
     public bool JumpPressInput { get; private set; } = false;
     public bool JumpHoldInput { get; private set; } = false;
+    public bool DropInput { get; private set; } = false;
     
     enum InputType { Gamepad, Keyboard }
     InputAction gamepadMove, keyboardMove, jump, drop, attack, gamepadAim;
@@ -22,6 +23,7 @@ public class PlayerInputComponent : MonoBehaviour
         keyboardMove = inputMap.FindAction("Move Keyboard");
         jump = inputMap.FindAction("Jump");
         gamepadAim = inputMap.FindAction("Aim");
+        drop = inputMap.FindAction("Drop");
     }
 
     private void OnEnable()
@@ -35,6 +37,10 @@ public class PlayerInputComponent : MonoBehaviour
         jump.started += _ => StartCoroutine(BufferJump());
         jump.performed += _ => JumpHoldInput = true;
         jump.canceled += _ => JumpHoldInput = false;
+
+        drop.Enable();
+        drop.performed += _ => DropInput = true;
+        drop.canceled += _ => DropInput = false;
 
     }
     private void OnDisable()

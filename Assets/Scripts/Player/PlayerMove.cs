@@ -11,17 +11,21 @@ using UnityEngine.InputSystem;
 public class PlayerMove : GroundedCharacter
 {
     enum Animations { Stunned, Idle, Running, Jumping, Launch, Raising, Falling, Land };
+    [Space(20)]
+    [Header("Player")]
+    [Space(10)]
     [SerializeField] float ascendingDrag = 1;
     [SerializeField] float holdingJumpDrag = 1;
     [SerializeField] float coyoteTime = 0.2f;
     [SerializeField] float stunnedGravityScale = 1;
     [SerializeField] PhysicsMaterial2D ragdollPhysics;
+    [SerializeField] float dropPlatformLength = 0.5f;
+
     //AudioManagerComponent sfx;
     AudioSource audioSource;
     Animations currentAnimation = Animations.Idle;
 
     PlayerInputComponent inputs;
-    public bool inDeathPit = false;
     bool isDroppingPlatform = false, stunned = false;
     bool ended = false;
     float coyoteTimeElapsed = 0;
@@ -74,34 +78,26 @@ public class PlayerMove : GroundedCharacter
 
     private void SetHorizontalVelocity()
     {
-        if (inDeathPit)
-        {
-            newVelocity.x = 0;
-            return;
-        }
         newVelocity.x = inputs.MoveInput.x * horizontalSpeed;
         if (inputs.MoveInput.x != 0)
             Sprite.flipX = inputs.MoveInput.x > 0;
     }
 
-    // TODO: Update
-
     private void CheckInputs()
     {
-        if (inputs.JumpPressInput && (IsGrounded || IsCoyoteTime) && !IsJumping && !inDeathPit)
+        if (inputs.JumpPressInput && (IsGrounded || IsCoyoteTime) && !IsJumping)
             newVelocity.y = jumpVelocity;
 
     }
 
     protected override void AddGravity()
     {
-        // TODO: Decide if we use this or not
-        //if (inputs.DropInput && isTouchingPlatform && !isDroppingPlatform)
-        //{
-        //    StartCoroutine(DropPlatform());
-        //}
-        //if (isDroppingPlatform)
-        //    isTouchingPlatform = false;
+        if (inputs.DropInput && isTouchingPlatform && !isDroppingPlatform)
+        {
+            StartCoroutine(DropPlatform());
+        }
+        if (isDroppingPlatform)
+            isTouchingPlatform = false;
         if (IsGrounded)
         {
             newVelocity.y = 0;
@@ -120,7 +116,7 @@ public class PlayerMove : GroundedCharacter
         coyoteTimeElapsed += coyoteTime;
         newVelocity.y = 0;
         isDroppingPlatform = true;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(dropPlatformLength);
         isDroppingPlatform = false;
     }
 

@@ -22,6 +22,7 @@ public class KoopaMove : GroundedCharacter
     {
         newVelocity = Velocity;
         FloorCheck();
+        WallCheck();
         SetHorizontalVelocity();
         AddGravity();
         AddSlopeCompensation();
@@ -31,6 +32,19 @@ public class KoopaMove : GroundedCharacter
 
     private void SetHorizontalVelocity()
     {
-        newVelocity.x = horizontalSpeed * ;
+        newVelocity.x = horizontalSpeed * (isMovingRight ? 1 : -1);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+
+        }
+    }
+
+    private void WallCheck()
+    {
+        
     }
 }

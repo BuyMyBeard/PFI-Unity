@@ -171,6 +171,9 @@ MonoBehaviour:
   platformLayer:
     serializedVersion: 2
     m_Bits: 128
+  groundAndPlatformLayer:
+    serializedVersion: 2
+    m_Bits: 192
   noFriction: {fileID: 6200000, guid: 7116f16114ff1f041ad1e63f22c9adf8, type: 2}
   highFriction: {fileID: 6200000, guid: f9cd31175dd121f42bfacb1dba1e0f1c, type: 2}
   SlopeUpCompensation: 0.05
@@ -180,7 +183,7 @@ MonoBehaviour:
   coyoteTime: 0.2
   stunnedGravityScale: 1
   ragdollPhysics: {fileID: 0}
-  inDeathPit: 0
+  dropPlatformLength: 0.5
 --- !u!114 &463771618
 MonoBehaviour:
   m_ObjectHideFlags: 0

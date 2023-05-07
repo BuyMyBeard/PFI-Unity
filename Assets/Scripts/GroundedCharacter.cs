@@ -63,7 +63,8 @@ public abstract class GroundedCharacter : MonoBehaviour
     {
         get => IsGrounded && Velocity.x != 0;
     }
-
+    public LayerMask FloorLayer => groundLayer | platformLayer;
+    
     protected void Awake()
     {
         RB = GetComponent<Rigidbody2D>();
@@ -142,8 +143,8 @@ public abstract class GroundedCharacter : MonoBehaviour
     private void SlopeCheck(Vector2 rayOrigin)
     {
         Slope oldSlope = slope;
-        RaycastHit2D slopeHitRight = Physics2D.Raycast(rayOrigin, Vector2.right, groundCheckDistance, groundLayer);
-        RaycastHit2D slopeHitLeft = Physics2D.Raycast(rayOrigin, Vector2.left, groundCheckDistance, groundLayer);
+        RaycastHit2D slopeHitRight = Physics2D.Raycast(rayOrigin, Vector2.right, groundCheckDistance, FloorLayer);
+        RaycastHit2D slopeHitLeft = Physics2D.Raycast(rayOrigin, Vector2.left, groundCheckDistance, FloorLayer);
         if (!slopeHitLeft && !slopeHitRight)
             slope = Slope.None;
         else if (slopeHitLeft && slopeHitRight)
@@ -152,7 +153,10 @@ public abstract class GroundedCharacter : MonoBehaviour
             transform.Translate(0, compensation, 0);
         }
         else if (slopeHitRight)
+        {
             slope = Slope.Up;
+            Debug.Log("dkdkkd");
+        }
         else //slopeHitBack
             slope = Slope.Down;
 
@@ -166,10 +170,10 @@ public abstract class GroundedCharacter : MonoBehaviour
     {
         yield return new WaitForSeconds(SlopeUpCompensation);
         Vector2 rayOrigin = transform.position - new Vector3(0, ColliderSize.y / 2) + (Vector3)(CC.offset * transform.localScale);
-        RaycastHit2D groundHit = Physics2D.Raycast(rayOrigin, Vector2.down, groundCheckDistance, groundLayer);
-        if (groundHit && IsGrounded && slope == Slope.None)
+        RaycastHit2D floorHit = Physics2D.Raycast(rayOrigin, Vector2.down, groundCheckDistance, FloorLayer);
+        if (floorHit && IsGrounded && slope == Slope.None)
         {
-            transform.Translate(0, -groundHit.distance, 0);
+            transform.Translate(0, -floorHit.distance, 0);
         }
     }
 }

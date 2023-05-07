@@ -124,7 +124,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 0.3, y: 0.64}
   m_Direction: 0
 --- !u!95 &463771615
 Animator:
@@ -159,11 +159,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c01867d98ca524baf027e0bdc74da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terminalVelocity: -6
+  terminalVelocity: -10
   gravAcceleration: -15
   horizontalSpeed: 7
   jumpVelocity: 12
-  groundCheckDistance: 0.1
+  groundCheckDistance: 0.15
   compensation: 0
   groundLayer:
     serializedVersion: 2
@@ -171,9 +171,6 @@ MonoBehaviour:
   platformLayer:
     serializedVersion: 2
     m_Bits: 128
-  groundAndPlatformLayer:
-    serializedVersion: 2
-    m_Bits: 192
   noFriction: {fileID: 6200000, guid: 7116f16114ff1f041ad1e63f22c9adf8, type: 2}
   highFriction: {fileID: 6200000, guid: f9cd31175dd121f42bfacb1dba1e0f1c, type: 2}
   SlopeUpCompensation: 0.05

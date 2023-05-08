@@ -25,7 +25,7 @@ public class PlayerDamageComponent : MonoBehaviour
     {
         if (!isInvulnerable && collision.IsTouchingLayers(damageLayer))
         {
-            StartCoroutine(TakeKnockback(collision));
+            StartCoroutine(TakeKnockback(collision.transform));
             StartCoroutine(BecomeInvincible(invicibilityTime));
         }
     }
@@ -33,14 +33,33 @@ public class PlayerDamageComponent : MonoBehaviour
     {
         if (!isInvulnerable && collision.IsTouchingLayers(damageLayer))
         {
-            StartCoroutine(TakeKnockback(collision));
+            StartCoroutine(TakeKnockback(collision.transform));
             StartCoroutine(BecomeInvincible(invicibilityTime));
         }
     }
 
-    IEnumerator TakeKnockback(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        float deltaX = transform.position.x - collision.transform.position.x;
+        if (!isInvulnerable && collision.collider.IsTouchingLayers(damageLayer))
+        {
+            StartCoroutine(TakeKnockback(collision.transform));
+            StartCoroutine(BecomeInvincible(invicibilityTime));
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (!isInvulnerable && collision.collider.IsTouchingLayers(damageLayer))
+        {
+            StartCoroutine(TakeKnockback(collision.transform));
+            StartCoroutine(BecomeInvincible(invicibilityTime));
+        }
+    }
+
+
+
+    IEnumerator TakeKnockback(Transform colliderPosition)
+    {
+        float deltaX = transform.position.x - colliderPosition.position.x;
         Vector2 launchVector = launchDirection * launchSpeed;
         if (deltaX < 0 || (deltaX == 0 && Random.Range(0, 2) == 0))
             launchVector.x = -launchVector.x;

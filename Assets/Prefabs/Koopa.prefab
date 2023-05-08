@@ -102,21 +102,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terminalVelocity: -6
   gravAcceleration: -15
-  horizontalSpeed: 7
+  horizontalSpeed: 1
   jumpVelocity: 12
-  groundCheckDistance: 0.1
+  groundCheckDistance: 0.2
   compensation: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   platformLayer:
     serializedVersion: 2
     m_Bits: 0
-  noFriction: {fileID: 0}
-  highFriction: {fileID: 0}
+  noFriction: {fileID: 6200000, guid: 7116f16114ff1f041ad1e63f22c9adf8, type: 2}
+  highFriction: {fileID: 6200000, guid: f9cd31175dd121f42bfacb1dba1e0f1c, type: 2}
   SlopeUpCompensation: 0.05
   slope: 2
-  speed: -1
+  ledgeCheckX: 1
+  ledgeCheckY: -5
+  ledgeCheckDistance: 1
+  wallCheckDistance: 0.3
+  IsFlipped: 1
 --- !u!70 &6994222895384511625
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -130,8 +134,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.7, y: 0.94}
+  m_Offset: {x: 0.11653797, y: -0.015034407}
+  m_Size: {x: 0.39859644, y: 0.94082934}
   m_Direction: 0
 --- !u!50 &8723061781529765498
 Rigidbody2D:

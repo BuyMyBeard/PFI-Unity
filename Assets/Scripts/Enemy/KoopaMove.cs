@@ -5,11 +5,29 @@ using UnityEngine;
 
 public class KoopaMove : GroundedCharacter
 {
-    bool isMovingRight = false;
+    [SerializeField] float ledgeCheckX;
+    [SerializeField] float ledgeCheckY;
+    [SerializeField] float ledgeCheckDistance;
+    [SerializeField] float wallCheckDistance = 1f;
+    [SerializeField] bool IsFlipped = false;
+
+    float MovingBackMult => IsFlipped ? 1 : -1;
+
+    void Flip()
+    {
+        IsFlipped = !IsFlipped;
+        Sprite.flipX = !Sprite.flipX;
+        CC.offset *= -1;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (IsFlipped)
+        {
+            Sprite.flipX = !Sprite.flipX;
+            CC.offset *= -1;
+        }
     }
 
     // Update is called once per frame
@@ -22,6 +40,7 @@ public class KoopaMove : GroundedCharacter
     {
         newVelocity = Velocity;
         FloorCheck();
+        LedgeCheck();
         WallCheck();
         SetHorizontalVelocity();
         AddGravity();
@@ -32,19 +51,30 @@ public class KoopaMove : GroundedCharacter
 
     private void SetHorizontalVelocity()
     {
-        newVelocity.x = horizontalSpeed * (isMovingRight ? 1 : -1);
+        newVelocity.x = horizontalSpeed * MovingBackMult;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void LedgeCheck()
     {
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
+        Vector2 ledgeCheckDir = new Vector2(ledgeCheckX * MovingBackMult, ledgeCheckY).normalized;
+        RaycastHit2D isLedge = Physics2D.Raycast(transform.position, ledgeCheckDir, ledgeCheckDistance, groundLayer);
+        Debug.DrawRay(transform.position, ledgeCheckDir * ledgeCheckDistance, Color.magenta);
 
+        if (!isLedge && isGrounded)
+        {
+            Flip();
         }
     }
 
     private void WallCheck()
     {
-        
+        Vector2 wallCheckDir = new Vector2(MovingBackMult, 0);
+        RaycastHit2D wallHit = Physics2D.Raycast(transform.position, wallCheckDir, wallCheckDistance, groundLayer);
+        Debug.DrawRay(transform.position, wallCheckDir* wallCheckDistance, Color.yellow);
+
+        if (wallHit)
+        {
+            Flip();
+        }
     }
 }

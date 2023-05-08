@@ -26,7 +26,7 @@ public abstract class GroundedCharacter : MonoBehaviour
     [SerializeField] protected float SlopeUpCompensation = 0.05f;
     //AudioManagerComponent audioManager;
 
-    protected bool isTouchingGround, isTouchingPlatform;
+    protected bool isGrounded = false;
     protected Animator animator;
     public Slope slope = Slope.None;
     public SpriteRenderer Sprite { get; set; }
@@ -44,15 +44,11 @@ public abstract class GroundedCharacter : MonoBehaviour
 
     public bool IsFalling
     {
-        get => !IsGrounded && Velocity.y < 0;
+        get => !isGrounded && Velocity.y < 0;
     }
     public bool IsJumping
     {
-        get => !IsGrounded && Velocity.y > 0;
-    }
-    public bool IsGrounded
-    {
-        get => isTouchingGround || isTouchingPlatform;
+        get => !isGrounded && Velocity.y > 0;
     }
     public bool IsTouchingSlope
     {
@@ -61,9 +57,8 @@ public abstract class GroundedCharacter : MonoBehaviour
 
     public bool IsWalking
     {
-        get => IsGrounded && Velocity.x != 0;
+        get => isGrounded && Velocity.x != 0;
     }
-    public LayerMask FloorLayer => groundLayer | platformLayer;
     
     protected void Awake()
     {
@@ -91,7 +86,7 @@ public abstract class GroundedCharacter : MonoBehaviour
 
     protected virtual void AddGravity()
     {
-        if (IsGrounded)
+        if (isGrounded)
         {
             newVelocity.y = 0;
             RB.sharedMaterial = highFriction;
@@ -119,20 +114,13 @@ public abstract class GroundedCharacter : MonoBehaviour
     }
     protected void GroundCheck(Vector2 rayOrigin)
     {
-        bool wasGrounded = IsGrounded;
+        bool wasGrounded = isGrounded;
         RaycastHit2D groundHit = Physics2D.Raycast(rayOrigin, Vector2.down, groundCheckDistance, groundLayer);
-        RaycastHit2D platformHit = Physics2D.Raycast(rayOrigin, Vector2.down, groundCheckDistance, platformLayer);
-        isTouchingGround = !IsJumping && groundHit;
-        isTouchingPlatform = !IsJumping && platformHit;
+        isGrounded = !IsJumping && groundHit;
 
-        if (!wasGrounded && IsGrounded)
-        {
-            if (isTouchingGround)
-                transform.Translate(0, -groundHit.distance, 0);
-            else
-                transform.Translate(0, -platformHit.distance, 0);
-        }
-        else if (!IsGrounded)
+        if (!wasGrounded && isGrounded)
+            transform.Translate(0, -groundHit.distance, 0);
+        else if (!isGrounded)
             slope = Slope.None;
         //supposed to compensate for moving up slope, but breaks a bunch of stuff
         //else if (isTouchingGround && slope == Slope.None && groundHit.distance != 0)
@@ -143,8 +131,8 @@ public abstract class GroundedCharacter : MonoBehaviour
     private void SlopeCheck(Vector2 rayOrigin)
     {
         Slope oldSlope = slope;
-        RaycastHit2D slopeHitRight = Physics2D.Raycast(rayOrigin, Vector2.right, groundCheckDistance, FloorLayer);
-        RaycastHit2D slopeHitLeft = Physics2D.Raycast(rayOrigin, Vector2.left, groundCheckDistance, FloorLayer);
+        RaycastHit2D slopeHitRight = Physics2D.Raycast(rayOrigin, Vector2.right, groundCheckDistance, groundLayer);
+        RaycastHit2D slopeHitLeft = Physics2D.Raycast(rayOrigin, Vector2.left, groundCheckDistance, groundLayer);
         if (!slopeHitLeft && !slopeHitRight)
             slope = Slope.None;
         else if (slopeHitLeft && slopeHitRight)
@@ -158,7 +146,7 @@ public abstract class GroundedCharacter : MonoBehaviour
         else //slopeHitBack
             slope = Slope.Down;
 
-        if (oldSlope != Slope.None && slope == Slope.None && IsGrounded)
+        if (oldSlope != Slope.None && slope == Slope.None && isGrounded)
             StartCoroutine(CompensateForSlopeUp());
         Debug.DrawRay(rayOrigin, Vector2.right * groundCheckDistance, Color.green);
         Debug.DrawRay(rayOrigin, Vector2.left * groundCheckDistance, Color.blue);
@@ -168,8 +156,8 @@ public abstract class GroundedCharacter : MonoBehaviour
     {
         yield return new WaitForSeconds(SlopeUpCompensation);
         Vector2 rayOrigin = transform.position - new Vector3(0, ColliderSize.y / 2) + (Vector3)(CC.offset * transform.localScale);
-        RaycastHit2D floorHit = Physics2D.Raycast(rayOrigin, Vector2.down, groundCheckDistance, FloorLayer);
-        if (floorHit && IsGrounded && slope == Slope.None)
+        RaycastHit2D floorHit = Physics2D.Raycast(rayOrigin, Vector2.down, groundCheckDistance, groundLayer);
+        if (floorHit && isGrounded && slope == Slope.None)
         {
             transform.Translate(0, -floorHit.distance, 0);
         }

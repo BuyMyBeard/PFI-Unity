@@ -19,15 +19,13 @@ public class PlayerMove : GroundedCharacter
     [SerializeField] float coyoteTime = 0.2f;
     [SerializeField] float stunnedGravityScale = 1;
     [SerializeField] PhysicsMaterial2D ragdollPhysics;
-    [SerializeField] float dropPlatformLength = 0.5f;
 
     //AudioManagerComponent sfx;
     AudioSource audioSource;
     Animations currentAnimation = Animations.Idle;
 
     PlayerInputComponent inputs;
-    bool isDroppingPlatform = false, stunned = false;
-    bool ended = false;
+    bool stunned = false;
     float coyoteTimeElapsed = 0;
 
     public bool IsCoyoteTime
@@ -45,7 +43,7 @@ public class PlayerMove : GroundedCharacter
 
     new private void FixedUpdate()
     {
-        if (stunned || ended)
+        if (stunned)
             return;
 
         newVelocity = Velocity;
@@ -57,7 +55,7 @@ public class PlayerMove : GroundedCharacter
         AddDrag();
         LimitVelocity();
         Velocity = newVelocity;
-        if (IsGrounded)
+        if (isGrounded)
             ResetCoyoteTime();
     }
 
@@ -85,20 +83,14 @@ public class PlayerMove : GroundedCharacter
 
     private void CheckInputs()
     {
-        if (inputs.JumpPressInput && (IsGrounded || IsCoyoteTime) && !IsJumping)
+        if (inputs.JumpPressInput && (isGrounded || IsCoyoteTime) && !IsJumping)
             newVelocity.y = jumpVelocity;
 
     }
 
     protected override void AddGravity()
     {
-        if (inputs.DropInput && isTouchingPlatform && !isDroppingPlatform)
-        {
-            StartCoroutine(DropPlatform());
-        }
-        if (isDroppingPlatform)
-            isTouchingPlatform = false;
-        if (IsGrounded)
+        if (isGrounded)
         {
             newVelocity.y = 0;
             RB.sharedMaterial = highFriction;
@@ -109,15 +101,6 @@ public class PlayerMove : GroundedCharacter
             coyoteTimeElapsed += Time.deltaTime;
             RB.sharedMaterial = noFriction;
         }
-    }
-
-    IEnumerator DropPlatform()
-    {
-        coyoteTimeElapsed += coyoteTime;
-        newVelocity.y = 0;
-        isDroppingPlatform = true;
-        yield return new WaitForSeconds(dropPlatformLength);
-        isDroppingPlatform = false;
     }
 
     private void AddDrag()

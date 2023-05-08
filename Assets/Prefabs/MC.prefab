@@ -160,10 +160,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terminalVelocity: -10
-  gravAcceleration: -15
-  horizontalSpeed: 7
-  jumpVelocity: 12
-  groundCheckDistance: 0.22
+  gravAcceleration: -25
+  horizontalSpeed: 6
+  jumpVelocity: 10
+  groundCheckDistance: 0.15
   compensation: 0
   groundLayer:
     serializedVersion: 2
@@ -175,8 +175,8 @@ MonoBehaviour:
   highFriction: {fileID: 6200000, guid: f9cd31175dd121f42bfacb1dba1e0f1c, type: 2}
   SlopeUpCompensation: 0.05
   slope: 2
-  ascendingDrag: 1
-  holdingJumpDrag: 1
+  ascendingDrag: 4
+  holdingJumpDrag: 10
   coyoteTime: 0.2
   stunnedGravityScale: 1
   ragdollPhysics: {fileID: 0}

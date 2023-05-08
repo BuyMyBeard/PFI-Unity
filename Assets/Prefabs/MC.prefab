@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 463771615}
   - component: {fileID: 463771614}
   - component: {fileID: 463771618}
+  - component: {fileID: 1174408274523728895}
   m_Layer: 12
   m_Name: MC
   m_TagString: Untagged
@@ -180,7 +181,6 @@ MonoBehaviour:
   coyoteTime: 0.2
   stunnedGravityScale: 1
   ragdollPhysics: {fileID: 0}
-  dropPlatformLength: 0.5
 --- !u!114 &463771618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,3 +194,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpInputBuffer: 0.1
+--- !u!114 &1174408274523728895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3995489302489146105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0446dac091d7148b5db1e9ecf68222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invicibilityTime: 3
+  stunnedTime: 1.5
+  launchDirection: {x: 1, y: 1}
+  launchSpeed: 3
+  damageLayer:
+    serializedVersion: 2
+    m_Bits: 33280

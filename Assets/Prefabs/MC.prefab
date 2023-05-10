@@ -181,6 +181,8 @@ MonoBehaviour:
   coyoteTime: 0.2
   stunnedGravityScale: 1
   ragdollPhysics: {fileID: 6200000, guid: 783e3236eb75f434bae69ccf36d1618c, type: 2}
+  stunned: 0
+  bouncedOnEnemy: 0
 --- !u!114 &463771618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +212,9 @@ MonoBehaviour:
   stunnedTime: 1.5
   launchDirection: {x: 2, y: 1}
   launchSpeed: 5
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 8192
   damageLayer:
     serializedVersion: 2
-    m_Bits: 33280
+    m_Bits: 16896

@@ -25,9 +25,10 @@ public class PlayerMove : GroundedCharacter
     Animations currentAnimation = Animations.Idle;
 
     PlayerInputComponent inputs;
-    bool stunned = false;
+    public bool stunned = false;
     float coyoteTimeElapsed = 0;
 
+    public bool bouncedOnEnemy = false;
     public bool IsCoyoteTime
     {
         get => coyoteTimeElapsed < coyoteTime;
@@ -83,9 +84,11 @@ public class PlayerMove : GroundedCharacter
 
     private void CheckInputs()
     {
-        if (inputs.JumpPressInput && (isGrounded || IsCoyoteTime) && !IsJumping)
+        if ((inputs.JumpPressInput && (isGrounded || IsCoyoteTime) && !IsJumping) || bouncedOnEnemy)
+        {
             newVelocity.y = jumpVelocity;
-
+            bouncedOnEnemy = false;
+        }
     }
 
     protected override void AddGravity()

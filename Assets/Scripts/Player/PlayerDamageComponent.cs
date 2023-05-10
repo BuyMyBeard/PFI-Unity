@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMove))]
@@ -11,6 +12,7 @@ public class PlayerDamageComponent : MonoBehaviour
     [SerializeField] float stunnedTime = 2;
     [SerializeField] Vector2 launchDirection;
     [SerializeField] float launchSpeed;
+    [SerializeField] LayerMask attackLayer;
     [SerializeField] LayerMask damageLayer;
     PlayerMove playerMove;
 
@@ -28,7 +30,17 @@ public class PlayerDamageComponent : MonoBehaviour
             StartCoroutine(TakeKnockback(collision.transform));
             StartCoroutine(BecomeInvincible(invicibilityTime));
         }
+        if (!playerMove.stunned && playerMove.IsJumping && (attackLayer.value & (1 << collision.gameObject.layer)) > 0)
+        {
+            EnemyTakeDamageComponent takeDamage = collision.gameObject.GetComponent<EnemyTakeDamageComponent>();
+            if (takeDamage != null)
+            {
+                takeDamage.Die();
+                playerMove.bouncedOnEnemy = true;
+            }
+        }
     }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (!isInvulnerable && (damageLayer.value & (1 << collision.gameObject.layer)) > 0)

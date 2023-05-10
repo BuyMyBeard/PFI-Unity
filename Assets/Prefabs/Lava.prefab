@@ -4540,7 +4540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a7c76e173f8e7b49b98e6d071d3e997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 1
   minLavaLevel: 0
-  maxLavaLevel: 10
+  maxLavaLevel: 35
   lavaSlider: {fileID: 0}

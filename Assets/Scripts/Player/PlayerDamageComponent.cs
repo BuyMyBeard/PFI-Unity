@@ -14,7 +14,7 @@ public class PlayerDamageComponent : MonoBehaviour
     [SerializeField] LayerMask damageLayer;
     PlayerMove playerMove;
 
-    bool isInvulnerable;
+    bool isInvulnerable = false;
     private void Awake()
     {
         launchDirection = launchDirection.normalized;
@@ -23,7 +23,7 @@ public class PlayerDamageComponent : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isInvulnerable && collision.IsTouchingLayers(damageLayer))
+        if (!isInvulnerable && (damageLayer.value & (1 << collision.gameObject.layer)) > 0)
         {
             StartCoroutine(TakeKnockback(collision.transform));
             StartCoroutine(BecomeInvincible(invicibilityTime));
@@ -31,24 +31,7 @@ public class PlayerDamageComponent : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!isInvulnerable && collision.IsTouchingLayers(damageLayer))
-        {
-            StartCoroutine(TakeKnockback(collision.transform));
-            StartCoroutine(BecomeInvincible(invicibilityTime));
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!isInvulnerable && collision.collider.IsTouchingLayers(damageLayer))
-        {
-            StartCoroutine(TakeKnockback(collision.transform));
-            StartCoroutine(BecomeInvincible(invicibilityTime));
-        }
-    }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (!isInvulnerable && collision.collider.IsTouchingLayers(damageLayer))
+        if (!isInvulnerable && (damageLayer.value & (1 << collision.gameObject.layer)) > 0)
         {
             StartCoroutine(TakeKnockback(collision.transform));
             StartCoroutine(BecomeInvincible(invicibilityTime));

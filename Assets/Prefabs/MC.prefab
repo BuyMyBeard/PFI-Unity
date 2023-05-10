@@ -168,7 +168,7 @@ MonoBehaviour:
   compensation: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 576
+    m_Bits: 64
   platformLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -180,7 +180,7 @@ MonoBehaviour:
   holdingJumpDrag: 10
   coyoteTime: 0.2
   stunnedGravityScale: 1
-  ragdollPhysics: {fileID: 0}
+  ragdollPhysics: {fileID: 6200000, guid: 783e3236eb75f434bae69ccf36d1618c, type: 2}
 --- !u!114 &463771618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,8 +208,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invicibilityTime: 3
   stunnedTime: 1.5
-  launchDirection: {x: 1, y: 1}
-  launchSpeed: 3
+  launchDirection: {x: 2, y: 1}
+  launchSpeed: 5
   damageLayer:
     serializedVersion: 2
     m_Bits: 16896

@@ -18,8 +18,8 @@ TagManager:
   - ProjectileBoundaries
   - Enemies
   - Player
-  - 
-  - 
+  - EnemyHit
+  - EnemyHurt
   - 
   - 
   - 

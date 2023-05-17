@@ -30,7 +30,7 @@ public class PlayerDamageComponent : MonoBehaviour
             StartCoroutine(TakeKnockback(collision.transform));
             StartCoroutine(BecomeInvincible(invicibilityTime));
         }
-        if (!playerMove.stunned && playerMove.IsJumping && (attackLayer.value & (1 << collision.gameObject.layer)) > 0)
+        if (!playerMove.stunned && playerMove.IsFalling && (attackLayer.value & (1 << collision.gameObject.layer)) > 0)
         {
             EnemyTakeDamageComponent takeDamage = collision.gameObject.GetComponent<EnemyTakeDamageComponent>();
             if (takeDamage != null)

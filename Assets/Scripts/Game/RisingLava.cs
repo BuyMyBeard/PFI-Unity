@@ -7,13 +7,14 @@ public class RisingLava : MonoBehaviour
     [SerializeField] float minLavaLevel = 0f;
     [SerializeField] float maxLavaLevel = 10f;
     [SerializeField] Slider lavaSlider;
-
+    private AudioManager audioManager;
     private Vector2 direction = Vector2.up;
     private float currentLavaLevel;
 
     void Awake()
     {
         direction = direction.normalized;
+        audioManager = GetComponent<AudioManager>();
     }
 
     void Start()
@@ -21,6 +22,7 @@ public class RisingLava : MonoBehaviour
         lavaSlider.minValue = minLavaLevel;
         lavaSlider.maxValue = maxLavaLevel;
         lavaSlider.onValueChanged.AddListener(OnLavaLevelChanged);
+        audioManager.PlaySFX(0);
     }
 
     void Update()

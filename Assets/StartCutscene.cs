@@ -10,7 +10,7 @@ public class StartCutscene : MonoBehaviour
     GameObject player;
     CinemachineVirtualCamera vCamera;
     GameObject lava;
-    private Vector2 direction = Vector2.down;
+    GameObject background;
     [SerializeField] float speed = 5f;
     [SerializeField] float time = 5f;
 
@@ -20,16 +20,15 @@ public class StartCutscene : MonoBehaviour
         player = FindObjectOfType<PlayerMove>().gameObject;
         vCamera = FindObjectOfType<CinemachineVirtualCamera>();
         lava = FindObjectOfType<RisingLava>().gameObject;
+        background = FindObjectOfType<ParallaxMechanic>().gameObject;
+        StartCoroutine(BeginCutscene(time));
+
     }
 
-    void Start()
-    {
-        StartCoroutine(BeginCutscene(time));
-    }
     private void Update()
     {
         if (!(transform.position.y < -4))
-            transform.Translate(speed * Time.deltaTime * direction);
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
     }
     public IEnumerator BeginCutscene(float time)
     {

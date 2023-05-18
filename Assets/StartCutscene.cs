@@ -10,7 +10,6 @@ public class StartCutscene : MonoBehaviour
     GameObject player;
     CinemachineVirtualCamera vCamera;
     GameObject lava;
-    GameObject background;
     [SerializeField] float speed = 5f;
     [SerializeField] float time = 5f;
 
@@ -20,7 +19,6 @@ public class StartCutscene : MonoBehaviour
         player = FindObjectOfType<PlayerMove>().gameObject;
         vCamera = FindObjectOfType<CinemachineVirtualCamera>();
         lava = FindObjectOfType<RisingLava>().gameObject;
-        background = FindObjectOfType<ParallaxMechanic>().gameObject;
         StartCoroutine(BeginCutscene(time));
 
     }

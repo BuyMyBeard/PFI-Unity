@@ -151,7 +151,7 @@ public class PlayerMove : GroundedCharacter
     IEnumerator PlaySoundWithDelay()
     {
         audioManager.PlaySFX(0);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
         audioSource.volume = 1f;
     }
 

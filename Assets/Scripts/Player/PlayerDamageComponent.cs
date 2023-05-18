@@ -14,6 +14,7 @@ public class PlayerDamageComponent : MonoBehaviour
     [SerializeField] float launchSpeed;
     [SerializeField] LayerMask attackLayer;
     [SerializeField] LayerMask damageLayer;
+    [SerializeField] LayerMask mapBorder;
     PlayerMove playerMove;
     private AudioManager audioManager;
 
@@ -27,6 +28,10 @@ public class PlayerDamageComponent : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        if (collision.gameObject.layer == mapBorder)
+            transform.position = Vector2.zero;
+
         if (!isInvulnerable && (damageLayer.value & (1 << collision.gameObject.layer)) > 0)
         {
             StartCoroutine(TakeKnockback(collision.transform));
@@ -42,7 +47,6 @@ public class PlayerDamageComponent : MonoBehaviour
             }
         }
     }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (!isInvulnerable && (damageLayer.value & (1 << collision.gameObject.layer)) > 0)
@@ -51,7 +55,6 @@ public class PlayerDamageComponent : MonoBehaviour
             StartCoroutine(BecomeInvincible(invicibilityTime));
         }
     }
-
 
 
     IEnumerator TakeKnockback(Transform colliderPosition)

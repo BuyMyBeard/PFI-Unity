@@ -220,6 +220,9 @@ MonoBehaviour:
   damageLayer:
     serializedVersion: 2
     m_Bits: 16896
+  mapBorder:
+    serializedVersion: 2
+    m_Bits: 32768
 --- !u!114 &-1595256924174720225
 MonoBehaviour:
   m_ObjectHideFlags: 0

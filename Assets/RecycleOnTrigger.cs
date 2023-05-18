@@ -9,9 +9,9 @@ public class RecycleOnTrigger : MonoBehaviour, IPoolable
 
     public ObjectPoolComponent AssociatedPool { get; set; }
 
-    private void OnTriggeEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.IsTouchingLayers(ProjectileBoundariesLayer))
+        if (collision.gameObject.layer == 10)
         {
             AssociatedPool.ReturnElement(gameObject);
         }

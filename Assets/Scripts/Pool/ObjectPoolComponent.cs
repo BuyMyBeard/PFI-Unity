@@ -10,10 +10,11 @@ public class ObjectPoolComponent : MonoBehaviour
     [SerializeField] int poolSize = 25;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         pool = new();
         FillPool();
+        transform.parent = null;
     }
     public GameObject GetElement()
     {

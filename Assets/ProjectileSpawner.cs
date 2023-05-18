@@ -29,7 +29,7 @@ public class ProjectileSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(minCooldown, maxCooldown));
             GameObject projectile = associatedPool.GetElement();
-            projectile.transform.position = transform.position + Vector3.forward * Random.Range(-spawnRange, spawnRange);
+            projectile.transform.position = transform.position + Vector3.right * Random.Range(-spawnRange, spawnRange);
             projectile.SetActive(true);
         }
     }

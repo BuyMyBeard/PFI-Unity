@@ -40,6 +40,6 @@ public class RisingLava : MonoBehaviour
     void OnLavaLevelChanged(float value)
     {
         currentLavaLevel = value;
-        transform.position = new Vector2(transform.position.x, currentLavaLevel);
+        transform.position = new Vector3(transform.position.x, currentLavaLevel, transform.position.z);
     }
 }

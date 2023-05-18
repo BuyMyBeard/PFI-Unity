@@ -19,6 +19,7 @@ public class PlayerMove : GroundedCharacter
     [SerializeField] float coyoteTime = 0.2f;
     [SerializeField] float stunnedGravityScale = 1;
     [SerializeField] PhysicsMaterial2D ragdollPhysics;
+    private AudioManager audioManager;
 
     //AudioManagerComponent sfx;
     AudioSource audioSource;
@@ -41,7 +42,10 @@ public class PlayerMove : GroundedCharacter
         inputs = GetComponent<PlayerInputComponent>();
         //sfx = GetComponent<AudioManagerComponent>();
     }
-
+    private void Start()
+    {
+        audioManager = GetComponent<AudioManager>();
+    }
     new private void FixedUpdate()
     {
         if (stunned)
@@ -86,6 +90,7 @@ public class PlayerMove : GroundedCharacter
     {
         if ((inputs.JumpPressInput && (isGrounded || IsCoyoteTime) && !IsJumping) || bouncedOnEnemy)
         {
+            JumpNoise();
             newVelocity.y = jumpVelocity;
             bouncedOnEnemy = false;
         }
@@ -137,4 +142,17 @@ public class PlayerMove : GroundedCharacter
         RB.gravityScale = 0;
         stunned = false;
     }
+    void JumpNoise()
+    {
+        audioSource.volume = 0.01f;
+        StartCoroutine(PlaySoundWithDelay());
+    }
+
+    IEnumerator PlaySoundWithDelay()
+    {
+        audioManager.PlaySFX(0);
+        yield return new WaitForSeconds(0.5f);
+        audioSource.volume = 1f;
+    }
+
 }

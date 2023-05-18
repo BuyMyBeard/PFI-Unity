@@ -15,6 +15,7 @@ public class PlayerDamageComponent : MonoBehaviour
     [SerializeField] LayerMask attackLayer;
     [SerializeField] LayerMask damageLayer;
     PlayerMove playerMove;
+    private AudioManager audioManager;
 
     bool isInvulnerable = false;
     private void Awake()
@@ -22,6 +23,7 @@ public class PlayerDamageComponent : MonoBehaviour
         launchDirection = launchDirection.normalized;
         playerMove = GetComponent<PlayerMove>();
         sprite = GetComponent<SpriteRenderer>();
+        audioManager = GetComponent<AudioManager>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -26,7 +26,7 @@ public class StartCutscene : MonoBehaviour
 
     private void Update()
     {
-        if (!(transform.position.y < -4))
+        if (!(transform.position.y < -player.transform.position.y))
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
     }
     public IEnumerator BeginCutscene(float time)

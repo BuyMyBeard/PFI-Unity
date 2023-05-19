@@ -7,11 +7,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerInputComponent))]
 public class PlayerMove : GroundedCharacter
 {
-    enum Animations { MCStunned, MCIdle, MCRun, MCRaising, MCFalling };
+    enum Animations { MCStunned, MCIdle, MCRun, MCRaising, MCFalling, MCDying };
     [Space(20)]
     [Header("Player")]
     [Space(10)]
@@ -20,6 +21,7 @@ public class PlayerMove : GroundedCharacter
     [SerializeField] float coyoteTime = 0.2f;
     [SerializeField] float stunnedGravityScale = 1;
     [SerializeField] float deadSpeed = 1;
+    [SerializeField] float timeBeforeDeath = 4;
     [SerializeField] PhysicsMaterial2D ragdollPhysics;
     private AudioManager audioManager;
 
@@ -53,7 +55,10 @@ public class PlayerMove : GroundedCharacter
     new private void FixedUpdate()
     {
         if (isDead)
+        {
             transform.Translate(deadSpeed * Time.fixedDeltaTime * Vector2.down);
+            return;
+        }
         if (stunned)
             return;
 
@@ -165,9 +170,17 @@ public class PlayerMove : GroundedCharacter
     internal void Die()
     {
         audioManager.PlaySFX(3);
-        
         inputs.enabled = false;
         isDead = true;
-
+        RB.velocity = Vector2.zero;
+        CC.enabled = false;
+        RB.gravityScale = 0;
+        SetAnimation(Animations.MCDying);
+        StartCoroutine(WaitForDeath());
+    }
+    IEnumerator WaitForDeath()
+    {
+        yield return new WaitForSeconds(timeBeforeDeath);
+        SceneManager.LoadScene("Main Menu");
     }
 }

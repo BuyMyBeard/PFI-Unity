@@ -313,3 +313,6 @@ MonoBehaviour:
   attackerLayer:
     serializedVersion: 2
     m_Bits: 4096
+  launchSpeed: 10
+  rotationSpeed: 1000
+  TimeBeforeDissapear: 5

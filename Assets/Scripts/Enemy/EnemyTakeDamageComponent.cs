@@ -15,7 +15,7 @@ public class EnemyTakeDamageComponent : MonoBehaviour
 
     public void Die()
     {
-        transform.parent.GetComponent<KoopaMove>().enabled = false;
+        transform.parent.GetComponent<MonsterMove>().enabled = false;
         transform.parent.GetComponent<CapsuleCollider2D>().enabled = false;
         foreach (var bc in transform.parent.GetComponentsInChildren<BoxCollider2D>())
             bc.enabled = false;

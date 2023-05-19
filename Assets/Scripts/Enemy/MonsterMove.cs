@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KoopaMove : GroundedCharacter
+public class MonsterMove : GroundedCharacter
 {
     [SerializeField] float ledgeCheckX;
     [SerializeField] float ledgeCheckY;

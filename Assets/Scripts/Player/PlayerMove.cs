@@ -34,7 +34,7 @@ public class PlayerMove : GroundedCharacter
     float coyoteTimeElapsed = 0;
 
     public bool bouncedOnEnemy = false;
-    private bool isJumpSoundPlaying = false, isDead = false;
+    private bool isDead = false;
     public bool IsCoyoteTime
     {
         get => coyoteTimeElapsed < coyoteTime;

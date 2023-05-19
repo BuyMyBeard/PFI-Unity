@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioManager))]
+[RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Coin : MonoBehaviour
 {
     Score score;
     private AudioManager audioManager;
-    AudioSource audioSource;
     private void Awake()
     {
         score = FindObjectOfType<Score>();
-        audioSource = GetComponent<AudioSource>();
         audioManager = GetComponent<AudioManager>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -18,18 +19,9 @@ public class Coin : MonoBehaviour
         if (collision.gameObject.name == "MC")
         {
             score.CollectCoin();
-            StartCoroutine(PlaySoundDelay());
+            audioManager.PlaySFX(0);
+            GetComponent<CircleCollider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
         }
     }
-
-    IEnumerator PlaySoundDelay()
-    {
-        audioSource.volume = 0.01f;
-        audioManager.PlaySFX(0);
-        yield return new WaitForSeconds(0.8f);
-        audioSource.volume = 1f;
-
-        gameObject.SetActive(false);
-    }
-
 }

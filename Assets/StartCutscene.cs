@@ -21,6 +21,7 @@ public class StartCutscene : MonoBehaviour
         lava = FindObjectOfType<RisingLava>().gameObject;
         StartCoroutine(BeginCutscene(time));
 
+
     }
 
     private void Update()

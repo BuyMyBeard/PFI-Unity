@@ -11,7 +11,7 @@ public class PlayerInputComponent : MonoBehaviour
     public bool JumpPressInput { get; private set; } = false;
     public bool JumpHoldInput { get; private set; } = false;
     public bool DropInput { get; private set; } = false;
-    
+
     enum InputType { Gamepad, Keyboard }
     InputAction gamepadMove, keyboardMove, jump, drop, attack, gamepadAim;
     InputType currentInputType = InputType.Keyboard;

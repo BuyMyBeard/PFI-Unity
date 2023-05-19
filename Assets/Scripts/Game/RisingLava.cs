@@ -26,7 +26,8 @@ public class RisingLava : MonoBehaviour
         lavaSlider.maxValue = maxLavaLevel; //changer pour le top du niveau
         lavaSlider.onValueChanged.AddListener(OnLavaLevelChanged);
         audioSource.loop = true;
-        audioManager.PlaySFX(0);
+        //audioManager.PlaySFX(0);
+        audioSource.Play();
         
     }
 

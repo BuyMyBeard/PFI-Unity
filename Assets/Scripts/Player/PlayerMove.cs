@@ -5,12 +5,13 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInputComponent))]
 public class PlayerMove : GroundedCharacter
 {
-    enum Animations { Stunned, Idle, Running, Jumping, Launch, Raising, Falling, Land };
+    enum Animations { MCStunned, MCIdle, MCRun, MCRaising, MCFalling };
     [Space(20)]
     [Header("Player")]
     [Space(10)]
@@ -23,13 +24,15 @@ public class PlayerMove : GroundedCharacter
 
     //AudioManagerComponent sfx;
     AudioSource audioSource;
-    Animations currentAnimation = Animations.Idle;
+    Animations currentAnimation = Animations.MCIdle;
 
     PlayerInputComponent inputs;
     public bool stunned = false;
     float coyoteTimeElapsed = 0;
 
     public bool bouncedOnEnemy = false;
+    private bool isJumpSoundPlaying = false;
+
     public bool IsCoyoteTime
     {
         get => coyoteTimeElapsed < coyoteTime;
@@ -40,6 +43,7 @@ public class PlayerMove : GroundedCharacter
         base.Awake();
         audioSource = GetComponent<AudioSource>();
         inputs = GetComponent<PlayerInputComponent>();
+        animator = GetComponent<Animator>();
         //sfx = GetComponent<AudioManagerComponent>();
     }
     private void Start()
@@ -64,18 +68,43 @@ public class PlayerMove : GroundedCharacter
             ResetCoyoteTime();
     }
 
+    private void Update()
+    {
+        if (stunned)
+            return;
+        if (isGrounded)
+        {
+            if (Velocity.x != 0)
+                SetAnimation(Animations.MCRun);
+            else
+                SetAnimation(Animations.MCIdle);
+        }
+        else
+        {
+            if (Velocity.y <= 0)
+                SetAnimation(Animations.MCFalling);
+            else
+                SetAnimation(Animations.MCRaising);
+        }
+
+        if (IsJumping && !isJumpSoundPlaying)
+        {
+            StartCoroutine(PlayJumpSoundDelay());
+        }
+    }
+
     private void SetAnimation(Animations animation)
     {
-        //if (currentAnimation != animation)
-        //{
-        //    if (animation == Animations.Running)
-        //        audioSource.Play();
-        //    else
-        //        audioSource.Stop();
+        if (currentAnimation != animation)
+        {
+            if (animation == Animations.MCRun)
+                audioSource.Play();
+            else
+                audioSource.Stop();
 
-        //    animator.Play(dictAnimations[animation]);
-        //    currentAnimation = animation;
-        //}
+            animator.Play(animation.ToString());
+            currentAnimation = animation;
+        }
     }
 
 
@@ -83,14 +112,12 @@ public class PlayerMove : GroundedCharacter
     {
         newVelocity.x = inputs.MoveInput.x * horizontalSpeed;
         if (inputs.MoveInput.x != 0)
-            Sprite.flipX = inputs.MoveInput.x > 0;
+            Sprite.flipX = inputs.MoveInput.x < 0;
     }
-
     private void CheckInputs()
     {
         if ((inputs.JumpPressInput && (isGrounded || IsCoyoteTime) && !IsJumping) || bouncedOnEnemy)
         {
-            JumpNoise();
             newVelocity.y = jumpVelocity;
             bouncedOnEnemy = false;
         }
@@ -127,8 +154,8 @@ public class PlayerMove : GroundedCharacter
     }
     public void TakeKnockBack(Vector2 knockback)
     {
-        SetAnimation(Animations.Stunned);
-        currentAnimation = Animations.Stunned;
+        SetAnimation(Animations.MCStunned);
+        currentAnimation = Animations.MCStunned;
         RB.velocity = knockback;
         RB.gravityScale = stunnedGravityScale;
         stunned = true;
@@ -137,22 +164,15 @@ public class PlayerMove : GroundedCharacter
     }
     public void Recover()
     {
-        currentAnimation = Animations.Idle;
-        SetAnimation(Animations.Idle);
+        SetAnimation(Animations.MCIdle);
         RB.gravityScale = 0;
         stunned = false;
     }
-    void JumpNoise()
+    IEnumerator PlayJumpSoundDelay()
     {
-        audioSource.volume = 0.01f;
-        StartCoroutine(PlaySoundWithDelay());
-    }
-
-    IEnumerator PlaySoundWithDelay()
-    {
+        isJumpSoundPlaying = true;
         audioManager.PlaySFX(0);
-        yield return new WaitForSeconds(1.5f);
-        audioSource.volume = 1f;
+        yield return new WaitForSeconds(1f);
+        isJumpSoundPlaying = false;
     }
-
 }

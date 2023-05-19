@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 1152537259342955329}
   - component: {fileID: 3102928912068993161}
   - component: {fileID: 422949302811732660}
-  - component: {fileID: 2459154211184800965}
   m_Layer: 6
   m_Name: Lava
   m_TagString: Untagged
@@ -4556,11 +4555,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 233015c989ad2ee43a626c121695533b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -4642,17 +4641,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2459154211184800965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397686516658534912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8b6709c4c81b7c4f8a3fd6bdfe463ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sfx:
-  - {fileID: 8300000, guid: 233015c989ad2ee43a626c121695533b, type: 3}

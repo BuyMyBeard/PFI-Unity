@@ -15,9 +15,21 @@ public class Coin : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        score.CollectCoin();
+        if (collision.gameObject.name == "MC")
+        {
+            score.CollectCoin();
+            StartCoroutine(PlaySoundDelay());
+        }
+    }
+
+    IEnumerator PlaySoundDelay()
+    {
+        audioSource.volume = 0.01f;
         audioManager.PlaySFX(0);
-        new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.8f);
+        audioSource.volume = 1f;
+
         gameObject.SetActive(false);
     }
+
 }

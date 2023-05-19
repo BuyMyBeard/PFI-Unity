@@ -31,6 +31,8 @@ public class PlayerMove : GroundedCharacter
     float coyoteTimeElapsed = 0;
 
     public bool bouncedOnEnemy = false;
+    private bool isJumpSoundPlaying = false;
+
     public bool IsCoyoteTime
     {
         get => coyoteTimeElapsed < coyoteTime;
@@ -84,6 +86,11 @@ public class PlayerMove : GroundedCharacter
             else
                 SetAnimation(Animations.MCRaising);
         }
+
+        if (IsJumping && !isJumpSoundPlaying)
+        {
+            StartCoroutine(PlayJumpSoundDelay());
+        }
     }
 
     private void SetAnimation(Animations animation)
@@ -107,12 +114,10 @@ public class PlayerMove : GroundedCharacter
         if (inputs.MoveInput.x != 0)
             Sprite.flipX = inputs.MoveInput.x < 0;
     }
-
     private void CheckInputs()
     {
         if ((inputs.JumpPressInput && (isGrounded || IsCoyoteTime) && !IsJumping) || bouncedOnEnemy)
         {
-            JumpNoise();
             newVelocity.y = jumpVelocity;
             bouncedOnEnemy = false;
         }
@@ -163,17 +168,11 @@ public class PlayerMove : GroundedCharacter
         RB.gravityScale = 0;
         stunned = false;
     }
-    void JumpNoise()
+    IEnumerator PlayJumpSoundDelay()
     {
-        audioSource.volume = 0.01f;
-        StartCoroutine(PlaySoundWithDelay());
-    }
-
-    IEnumerator PlaySoundWithDelay()
-    {
+        isJumpSoundPlaying = true;
         audioManager.PlaySFX(0);
-        yield return new WaitForSeconds(1.5f);
-        audioSource.volume = 1f;
+        yield return new WaitForSeconds(1f);
+        isJumpSoundPlaying = false;
     }
-
 }

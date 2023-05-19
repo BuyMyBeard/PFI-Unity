@@ -255,7 +255,7 @@ MonoBehaviour:
   canTeleport:
     serializedVersion: 2
     m_Bits: 6144
-  offset: 0.02
+  offset: 0.7
 --- !u!1 &455763038
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +349,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 809908260}
-  - component: {fileID: 809908261}
   m_Layer: 0
   m_Name: MapXTeleporter
   m_TagString: Untagged
@@ -374,18 +373,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &809908261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 809908259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13aaaad1ecde2a54698464d77d6f3fa4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &839352655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -403,11 +390,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1132487588235387063, guid: f206fe77dd9b35d408434c14c162dc6a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.75
+      value: 7.48
       objectReference: {fileID: 0}
     - target: {fileID: 1132487588235387063, guid: f206fe77dd9b35d408434c14c162dc6a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.36
+      value: 2.26
       objectReference: {fileID: 0}
     - target: {fileID: 1132487588235387063, guid: f206fe77dd9b35d408434c14c162dc6a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -522,7 +509,7 @@ MonoBehaviour:
   canTeleport:
     serializedVersion: 2
     m_Bits: 6144
-  offset: 0.02
+  offset: 0.7
 --- !u!1 &947287336
 GameObject:
   m_ObjectHideFlags: 0

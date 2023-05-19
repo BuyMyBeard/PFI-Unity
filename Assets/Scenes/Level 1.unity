@@ -41538,30 +41538,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -1595256924174720225, guid: dfafadb2d90fd894a92fb1624d5a7b0b, type: 3}
-      propertyPath: sfx.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: -1595256924174720225, guid: dfafadb2d90fd894a92fb1624d5a7b0b, type: 3}
-      propertyPath: sfx.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 2d40a6f36cc2a9648ab78c4b86ac76cc, type: 3}
-    - target: {fileID: -1595256924174720225, guid: dfafadb2d90fd894a92fb1624d5a7b0b, type: 3}
-      propertyPath: sfx.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: a44e34a324bfaa241b564062368ae00f, type: 3}
-    - target: {fileID: 463771614, guid: dfafadb2d90fd894a92fb1624d5a7b0b, type: 3}
-      propertyPath: deadSpeed
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1174408274523728895, guid: dfafadb2d90fd894a92fb1624d5a7b0b, type: 3}
-      propertyPath: lavaLayer.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 1174408274523728895, guid: dfafadb2d90fd894a92fb1624d5a7b0b, type: 3}
-      propertyPath: damageLayer.m_Bits
-      value: 82432
-      objectReference: {fileID: 0}
     - target: {fileID: 2829539706671390372, guid: dfafadb2d90fd894a92fb1624d5a7b0b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -41609,10 +41585,6 @@ PrefabInstance:
     - target: {fileID: 3995489302489146105, guid: dfafadb2d90fd894a92fb1624d5a7b0b, type: 3}
       propertyPath: m_Name
       value: MC
-      objectReference: {fileID: 0}
-    - target: {fileID: 5909523739085283193, guid: dfafadb2d90fd894a92fb1624d5a7b0b, type: 3}
-      propertyPath: m_Volume
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfafadb2d90fd894a92fb1624d5a7b0b, type: 3}

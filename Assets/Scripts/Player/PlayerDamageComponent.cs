@@ -14,7 +14,7 @@ public class PlayerDamageComponent : MonoBehaviour
     [SerializeField] float launchSpeed;
     [SerializeField] LayerMask attackLayer;
     [SerializeField] LayerMask damageLayer;
-    [SerializeField] LayerMask mapBorder;
+    [SerializeField] LayerMask lavaLayer;
     PlayerMove playerMove;
     private AudioManager audioManager;
 
@@ -28,9 +28,10 @@ public class PlayerDamageComponent : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        if (collision.gameObject.layer == mapBorder)
-            transform.position = Vector2.zero;
+        if ((lavaLayer.value & (1 << collision.gameObject.layer)) > 0)
+        {
+            playerMove.Die();
+        }
 
         if (!isInvulnerable && (damageLayer.value & (1 << collision.gameObject.layer)) > 0)
         {

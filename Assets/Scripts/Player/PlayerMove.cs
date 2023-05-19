@@ -19,6 +19,7 @@ public class PlayerMove : GroundedCharacter
     [SerializeField] float holdingJumpDrag = 1;
     [SerializeField] float coyoteTime = 0.2f;
     [SerializeField] float stunnedGravityScale = 1;
+    [SerializeField] float deadSpeed = 1;
     [SerializeField] PhysicsMaterial2D ragdollPhysics;
     private AudioManager audioManager;
 
@@ -31,8 +32,7 @@ public class PlayerMove : GroundedCharacter
     float coyoteTimeElapsed = 0;
 
     public bool bouncedOnEnemy = false;
-    private bool isJumpSoundPlaying = false;
-
+    private bool isJumpSoundPlaying = false, isDead = false;
     public bool IsCoyoteTime
     {
         get => coyoteTimeElapsed < coyoteTime;
@@ -52,6 +52,8 @@ public class PlayerMove : GroundedCharacter
     }
     new private void FixedUpdate()
     {
+        if (isDead)
+            transform.Translate(deadSpeed * Time.fixedDeltaTime * Vector2.down);
         if (stunned)
             return;
 
@@ -70,7 +72,7 @@ public class PlayerMove : GroundedCharacter
 
     private void Update()
     {
-        if (stunned)
+        if (stunned || isDead)
             return;
         if (isGrounded)
         {
@@ -86,22 +88,12 @@ public class PlayerMove : GroundedCharacter
             else
                 SetAnimation(Animations.MCRaising);
         }
-
-        if (IsJumping && !isJumpSoundPlaying)
-        {
-            StartCoroutine(PlayJumpSoundDelay());
-        }
     }
 
     private void SetAnimation(Animations animation)
     {
         if (currentAnimation != animation)
         {
-            if (animation == Animations.MCRun)
-                audioSource.Play();
-            else
-                audioSource.Stop();
-
             animator.Play(animation.ToString());
             currentAnimation = animation;
         }
@@ -118,6 +110,7 @@ public class PlayerMove : GroundedCharacter
     {
         if ((inputs.JumpPressInput && (isGrounded || IsCoyoteTime) && !IsJumping) || bouncedOnEnemy)
         {
+            audioManager.PlaySFX(0);
             newVelocity.y = jumpVelocity;
             bouncedOnEnemy = false;
         }
@@ -160,7 +153,7 @@ public class PlayerMove : GroundedCharacter
         RB.gravityScale = stunnedGravityScale;
         stunned = true;
         RB.sharedMaterial = ragdollPhysics;
-        //sfx.PlaySFX(0);
+        audioManager.PlaySFX(2);
     }
     public void Recover()
     {
@@ -168,11 +161,13 @@ public class PlayerMove : GroundedCharacter
         RB.gravityScale = 0;
         stunned = false;
     }
-    IEnumerator PlayJumpSoundDelay()
+
+    internal void Die()
     {
-        isJumpSoundPlaying = true;
-        audioManager.PlaySFX(0);
-        yield return new WaitForSeconds(1f);
-        isJumpSoundPlaying = false;
+        audioManager.PlaySFX(3);
+        
+        inputs.enabled = false;
+        isDead = true;
+
     }
 }

@@ -43,10 +43,6 @@ public class PlayerInputComponent : MonoBehaviour
         drop.canceled += _ => DropInput = false;
 
     }
-    private void OnDisable()
-    {
-        
-    }
 
     private void ChangeInputType(InputType type)
     {

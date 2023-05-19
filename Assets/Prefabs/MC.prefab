@@ -182,6 +182,7 @@ MonoBehaviour:
   holdingJumpDrag: 10
   coyoteTime: 0.2
   stunnedGravityScale: 1
+  deadSpeed: 0.1
   ragdollPhysics: {fileID: 6200000, guid: 783e3236eb75f434bae69ccf36d1618c, type: 2}
   stunned: 0
   bouncedOnEnemy: 0
@@ -219,10 +220,10 @@ MonoBehaviour:
     m_Bits: 8192
   damageLayer:
     serializedVersion: 2
-    m_Bits: 16896
-  mapBorder:
+    m_Bits: 82432
+  lavaLayer:
     serializedVersion: 2
-    m_Bits: 32768
+    m_Bits: 256
 --- !u!114 &-1595256924174720225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,6 +239,8 @@ MonoBehaviour:
   sfx:
   - {fileID: 8300000, guid: 644f5eea6621e2a43bef458c5aeaf5f0, type: 3}
   - {fileID: 8300000, guid: 03f690c0425e3dc42ae7a41f52925182, type: 3}
+  - {fileID: 8300000, guid: 2d40a6f36cc2a9648ab78c4b86ac76cc, type: 3}
+  - {fileID: 8300000, guid: a44e34a324bfaa241b564062368ae00f, type: 3}
 --- !u!82 &5909523739085283193
 AudioSource:
   m_ObjectHideFlags: 0
@@ -250,7 +253,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
